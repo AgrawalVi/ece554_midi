@@ -1,6 +1,6 @@
 module uart_rx (
   input wire clk,
-  input wire rst_n,
+  input wire rst,
   input wire RX,
   input wire [15:0] clk_div,
   input wire clr_rdy,
@@ -23,9 +23,9 @@ module uart_rx (
   state_t state, next_state;
 
   // rx metastability flip flop
-  always_ff @(posedge clk, negedge rst_n) begin
+  always_ff @(posedge clk) begin
     // need to preset the flops
-    if (!rst_n) begin
+    if (rst) begin
       rx_temp <= '1;
       rx_stable <= '1;
     end
@@ -36,36 +36,36 @@ module uart_rx (
   end
 
   // shift register
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) rx_shft_reg <= '0;
+  always_ff @(posedge clk) begin
+    if (rst) rx_shft_reg <= '0;
     else if (shift) rx_shft_reg <= {rx_stable, rx_shft_reg[9:1]};
   end
 
   // baud counter
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) baud_cnt <= '0;
+  always_ff @(posedge clk) begin
+    if (rst) baud_cnt <= '0;
     else if (start) baud_cnt <= {1'b0, clk_div[15:1]};
     else if (shift) baud_cnt <= clk_div;
     else if (receiving) baud_cnt <= baud_cnt - 1;
   end
 
   // bit counter
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) bit_cnt <= '0;
+  always_ff @(posedge clk) begin
+    if (rst) bit_cnt <= '0;
     else if (start) bit_cnt <= '0;
     else if (shift) bit_cnt <= bit_cnt + 1;
   end
 
   // rdy SR flop
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) rdy <= '0;
+  always_ff @(posedge clk) begin
+    if (rst) rdy <= '0;
     else if (start | clr_rdy) rdy <= '0;
     else if (set_rdy) rdy <= '1;
   end
 
   // state flop
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) state <= IDLE;
+  always_ff @(posedge clk) begin
+    if (rst) state <= IDLE;
     else state <= next_state;
   end
 

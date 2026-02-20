@@ -1,6 +1,6 @@
 module midi_receiver (
   input logic clk,
-  input logic rst_n,
+  input logic rst,
   input logic midi_rx,
   output reg note_on_trigger,
   output reg [6:0] note_number,
@@ -17,7 +17,7 @@ module midi_receiver (
 
   uart_rx uart_rx_inst (
     .clk(clk),
-    .rst_n(rst_n),
+    .rst(rst),
     .RX(midi_rx),
     .clk_div(CLK_DIV),
     .clr_rdy(clr_rdy),
@@ -38,8 +38,8 @@ module midi_receiver (
   assign clr_rdy = rdy; // Automatically clear ready signal when data is available
 
   // https://learn.sparkfun.com/tutorials/midi-tutorial/all#messages
-  always_ff @(posedge clk, negedge rst_n) begin
-    if (!rst_n) begin
+  always_ff @(posedge clk) begin
+    if (rst) begin
       state <= BYTE_1;
       note_on_trigger <= '0;
       note_number <= '0;

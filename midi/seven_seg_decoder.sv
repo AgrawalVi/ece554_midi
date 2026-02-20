@@ -2,7 +2,6 @@ module seven_seg_decoder (
     input [3:0] bin,
     output reg [6:0] seg
 );
-
     always @(*) begin
         case (bin)
             4'h0: seg = 7'b1000000;
@@ -24,5 +23,4 @@ module seven_seg_decoder (
             default: seg = 7'b1111111; // Off
         endcase
     end
-
 endmodule

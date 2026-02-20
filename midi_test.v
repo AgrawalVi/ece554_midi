@@ -49,7 +49,7 @@ wire [6:0] velocity;
 // Instantiate midi receiver here
 midi_receiver midi_receiver0(
     .clk(CLOCK_50),
-    .rst_n(rst),
+    .rst(rst),
     .midi_rx(rxd),
     .note_on_trigger(note_on_trigger),
     .note_number(note_number),
