@@ -51,11 +51,12 @@ module midi_receiver (
           // 1st nybble is status byte
           if (ms_nybble == 4'h8) begin // NOTE OFF
             note_on_trigger <= '0;
+            state <= BYTE_2;
           end else if (ms_nybble == 4'h9) begin // NOTE ON
             note_on_trigger <= '1;
+            state <= BYTE_2;
           end
           // 2nd nybble is channel number (irrelevant for now)
-          state <= BYTE_2;
         end
         BYTE_2: begin
           note_number <= rx_data[6:0];
