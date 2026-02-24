@@ -60,17 +60,17 @@ midi_receiver midi_receiver0(
 wire [23:0] frequency_x1000;
 wire [31:0] bcd_freq;
 
-// LUT to get frequency * 1000 from note number
-midi_freq_lut lut0 (
-    .note(note_number),
-    .frequency_x1000(frequency_x1000)
-);
+// // LUT to get frequency * 1000 from note number
+// midi_freq_lut lut0 (
+//     .note(note_number),
+//     .frequency_x1000(frequency_x1000)
+// );
 
-// Convert binary frequency to BCD for display
-bin_to_bcd bcd0 (
-    .bin(frequency_x1000),
-    .bcd(bcd_freq)
-);
+// // Convert binary frequency to BCD for display
+// bin_to_bcd bcd0 (
+//     .bin(frequency_x1000),
+//     .bcd(bcd_freq)
+// );
 
 reg [23:0] display_bcd;
 always @(*) begin
@@ -83,12 +83,40 @@ always @(*) begin
     end
 end
 
-// Display the selected digits on HEX displays
-seven_seg_decoder hex0_inst (.bin(display_bcd[3:0]),   .seg(HEX0));
-seven_seg_decoder hex1_inst (.bin(display_bcd[7:4]),   .seg(HEX1));
-seven_seg_decoder hex2_inst (.bin(display_bcd[11:8]),   .seg(HEX2));
-seven_seg_decoder hex3_inst (.bin(display_bcd[15:12]),  .seg(HEX3));
-seven_seg_decoder hex4_inst (.bin(display_bcd[19:16]),  .seg(HEX4));
-seven_seg_decoder hex5_inst (.bin(display_bcd[23:20]),  .seg(HEX5));
+function [6:0] seven_seg_decode;
+    input [3:0] val;
+    begin
+        case (val)
+            4'h0: seven_seg_decode = 7'b1000000;
+            4'h1: seven_seg_decode = 7'b1111001;
+            4'h2: seven_seg_decode = 7'b0100100;
+            4'h3: seven_seg_decode = 7'b0110000;
+            4'h4: seven_seg_decode = 7'b0011001;
+            4'h5: seven_seg_decode = 7'b0010010;
+            4'h6: seven_seg_decode = 7'b0000010;
+            4'h7: seven_seg_decode = 7'b1111000;
+            4'h8: seven_seg_decode = 7'b0000000;
+            4'h9: seven_seg_decode = 7'b0011000;
+            4'hA: seven_seg_decode = 7'b0001000;
+            4'hB: seven_seg_decode = 7'b0000011;
+            4'hC: seven_seg_decode = 7'b1000110;
+            4'hD: seven_seg_decode = 7'b0100001;
+            4'hE: seven_seg_decode = 7'b0000110;
+            4'hF: seven_seg_decode = 7'b0001110;
+            default: seven_seg_decode = 7'b1111111;
+        endcase
+    end
+endfunction
+
+always @(*) begin
+    // HEX0 = seven_seg_decode(frequency_x1000[3:0]);
+    // HEX1 = seven_seg_decode(frequency_x1000[7:4]);
+    // HEX2 = seven_seg_decode(frequency_x1000[11:8]);
+    // HEX3 = seven_seg_decode(frequency_x1000[15:12]);
+    // HEX4 = seven_seg_decode(frequency_x1000[19:16]);
+    // HEX5 = seven_seg_decode(frequency_x1000[23:20]);
+    HEX0 = seven_seg_decode(note_number[3:0]);
+    HEX1 = seven_seg_decode(note_number[7:4]);
+end
 
 endmodule
