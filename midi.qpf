@@ -3,4 +3,4 @@ QUARTUS_VERSION = "13"
 
 # Revisions
 
-PROJECT_REVISION = "midi_receiver"
+PROJECT_REVISION = "midi_test"

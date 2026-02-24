@@ -253,14 +253,10 @@ set_location_assignment PIN_AJ21 -to GPIO[35]
 #============================================================
 
 
-set_global_assignment -name SDC_FILE lab1_spart.sdc
-set_global_assignment -name SYSTEMVERILOG_FILE midi_test.v
-set_global_assignment -name SYSTEMVERILOG_FILE midi/midi_receiver.sv
-set_global_assignment -name SYSTEMVERILOG_FILE midi/midi_freq_lut.sv
-set_global_assignment -name SYSTEMVERILOG_FILE midi/bin_to_bcd.sv
-set_global_assignment -name SYSTEMVERILOG_FILE midi/seven_seg_decoder.sv
+set_global_assignment -name SDC_FILE midi.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE uart_rx.sv
-set_global_assignment -name SDC_FILE lab1_spart.SDC
+set_global_assignment -name SYSTEMVERILOG_FILE midi/midi_receiver.sv
+set_global_assignment -name VERILOG_FILE midi_test.v
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"

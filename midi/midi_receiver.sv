@@ -68,7 +68,6 @@ module midi_receiver (
         end
       endcase
     end
-    
   end
 
 endmodule
