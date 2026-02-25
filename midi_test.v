@@ -12,12 +12,12 @@ module midi_test(
     input               CLOCK4_50,
 
  //////////// SEG7 //////////
-    output      [6:0]  HEX0,
-    output      [6:0]  HEX1,
-    output      [6:0]  HEX2,
-    output      [6:0]  HEX3,
-    output      [6:0]  HEX4,
-    output      [6:0]  HEX5,
+    output logic      [6:0]  HEX0,
+    output logic      [6:0]  HEX1,
+    output logic      [6:0]  HEX2,
+    output logic      [6:0]  HEX3,
+    output logic      [6:0]  HEX4,
+    output logic      [6:0]  HEX5,
 
 //////////// KEY //////////
     input        [3:0]  KEY,
