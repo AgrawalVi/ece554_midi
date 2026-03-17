@@ -6,7 +6,7 @@ module midi_receiver_tb;
 
   // Signals
   logic clk;
-  logic rst_n;
+  logic rst;
   logic midi_rx;
   logic note_on_trigger;
   logic [6:0] note_number;
@@ -15,7 +15,7 @@ module midi_receiver_tb;
   // Instantiate the Device Under Test (DUT)
   midi_receiver dut (
     .clk(clk),
-    .rst_n(rst_n),
+    .rst(rst),
     .midi_rx(midi_rx),
     .note_on_trigger(note_on_trigger),
     .note_number(note_number),
@@ -51,13 +51,13 @@ module midi_receiver_tb;
   // Test Procedure
   initial begin
     // Initialize signals
-    rst_n = 0;
+    rst = 1;
     midi_rx = 1; // Idle state for UART is high
-
     // Apply Reset
-    repeat (10) @(posedge clk);
-    rst_n = 1;
-    repeat (10) @(posedge clk);
+
+    repeat (100) @(posedge clk);
+    rst = 0;
+    repeat (100) @(posedge clk);
 
     $display("Starting MIDI Processor Test...");
 

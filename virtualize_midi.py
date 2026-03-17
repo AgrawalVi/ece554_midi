@@ -1,8 +1,8 @@
 import serial
 import mido
 
-# Replace with your actual port from Step 2
-SERIAL_PORT = '/dev/cu.usbserial-FT0DJCPK' 
+# Run ls /dev/cu.usb* to find the currect port name
+SERIAL_PORT = '/dev/cu.usbserial-2120' 
 BAUD_RATE = 31250
 
 # Open Serial connection to FPGA

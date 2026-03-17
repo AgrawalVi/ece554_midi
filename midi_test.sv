@@ -116,7 +116,7 @@ always @(*) begin
     // HEX4 = seven_seg_decode(frequency_x1000[19:16]);
     // HEX5 = seven_seg_decode(frequency_x1000[23:20]);
     HEX0 = seven_seg_decode(note_number[3:0]);
-    HEX1 = seven_seg_decode(note_number[7:4]);
+    HEX1 = seven_seg_decode(note_number[6:4]);
 end
 
 endmodule
