@@ -4,7 +4,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY "midi_test"
+set_global_assignment -name TOP_LEVEL_ENTITY "midi"
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "15.1.0"
 set_global_assignment -name LAST_QUARTUS_VERSION "25.1std.0 Lite Edition"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:49:58 FEBRUARY 03,2026"
@@ -256,7 +256,7 @@ set_location_assignment PIN_AJ21 -to GPIO[35]
 set_global_assignment -name SDC_FILE midi.sdc
 set_global_assignment -name SYSTEMVERILOG_FILE uart_rx.sv
 set_global_assignment -name SYSTEMVERILOG_FILE midi/midi_receiver.sv
-set_global_assignment -name SYSTEMVERILOG_FILE midi_test.sv
+set_global_assignment -name SYSTEMVERILOG_FILE midi.sv
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
